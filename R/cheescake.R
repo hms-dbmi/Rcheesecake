@@ -5,9 +5,9 @@
 #' function
 #' @param url  The url.
 #' @author Gregoire Versmee
-#' @export cheesecake
+#' @export picsure
 
-cheesecake <- function(env, key, var, subset = "ALL", verbose = FALSE) {
+picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
 
   # Is it a key or a token?
   if (nchar(key) == 26)  {
@@ -26,8 +26,6 @@ cheesecake <- function(env, key, var, subset = "ALL", verbose = FALSE) {
   }  else  {
     token <- key
   }
-
-
 
   # build the query
     # build the "select" part of the query
@@ -54,7 +52,7 @@ cheesecake <- function(env, key, var, subset = "ALL", verbose = FALSE) {
       available.result(env, resultID, token)
 
       # get the response
-      result <- get.result(env, resultID, token)
+      suppressMessages(result <- get.result(env, resultID, token))
 
   # make the table pretty!!
       # order the columns
