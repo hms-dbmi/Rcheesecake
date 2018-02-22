@@ -46,8 +46,6 @@ cheesecake <- function(env, key, var, subset = "ALL", verbose = FALSE) {
     # combine select and where
       body <- paste0(select, where)
 
-      write.csv(body, "body.csv")
-
   # run the query
       # get the result ID
       resultID <- result.ID(env, body, token)
