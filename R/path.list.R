@@ -21,12 +21,10 @@ path.list <- function(env, var, token, verbose = FALSE) {
     ind <- content.get(path1, token)
 
     # If node is i2b2, look at the next one
-    for(j in 1:length(ind))  {
-      pui <- ind[[j]][["pui"]]
-      if (!grepl("i2b2", pui))  break
-    }
+      pui <- ind[[1]][["pui"]]
+      if (grepl("i2b2", pui))  pui <- ind[[2]][["pui"]]
 
-    while (!any(grepl (st, pui)))  {
+    while (!any(grepl (st, pui, fixed = TRUE)))  {
       path2 <- paste0(path1, pui[1])
       listpui <- content.get(path2, token)
       pui <- c()
@@ -34,10 +32,10 @@ path.list <- function(env, var, token, verbose = FALSE) {
           pui <- c(pui, listpui[[j]][["pui"]])
         }
     }
-    pui <- pui[which(grepl (st, pui))]
+    pui <- pui[which(grepl (st, pui, fixed = TRUE))]
 
     # Concat 1st node with the path to create the full path
-    path <- paste0(pui, sub(paste0("/", st, "/"), "", var[i]))
+    path <- paste0(pui, sub(paste0("/", st, "/"), "", var[i], fixed = TRUE))
 
     # Add to pathlist
     pathlist <- c(pathlist, path)

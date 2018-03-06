@@ -3,30 +3,42 @@
 
 nicer.result <- function(result, verbose = FALSE)  {
 
-  i <- 2
-  while (i <= ncol(result))  {
+
+  groups <- c()
+  for (i in 1:ncol(result))  {
     split <- unlist(strsplit(colnames(result)[i], "/"))
     code <- split[length(split)]
     label <- split[length(split)-1]
+    gr <- paste(split[1:length(split)-1], collapse = "/")
+    groups <- c(groups, gr)
+  }
+  groups2 <- unique(groups)
 
-    if (length(unique(result[,i])) == 2  & any(is.na(unique(result[,i]))))  {
-      result[,i][is.na(result[,i])] <- ""
-      colnames(result)[i] <- label
-      i <- i+1
-      while (length(unique(result[,i])) == 2  &
-             any(is.na(unique(result[,i] )))  &
-             unlist(strsplit(colnames(result)[i], "/"))[length(unlist(strsplit(colnames(result)[i], "/")))-1] == label)
-      {
-         result[,i][is.na(result[,i])] <- ""
-         result[,i-1] <- paste0(result[,i-1], result[,i])
-         result <- result[,-i]
-      }
-      result[,i-1] <- as.factor(result[,i-1])
-    }  else  {
-      colnames(result)[i] <- code
-      i <- i+1
+
+  final <- result[1]
+  cnames <- c("Patient_id")
+
+  for (i in 2:length(groups2))  {
+    subdf <- result[which(groups == groups2[i])]
+
+    if (length(unique(subdf[,1])) == 2  & any(is.na(unique(subdf[,1]))))  {
+      subdf[is.na(subdf)] <- ""
+      col <- as.factor(apply(subdf, 1, paste0, collapse = ""))
+      final <- cbind(final, col)
+      split <- unlist(strsplit(colnames(subdf), "/"))
+      code <- split[length(split)]
+      cnames <- c(cnames, code)
+
+    } else {
+      final <- cbind(final, subdf)
+      split <- strsplit(colnames(subdf), "/")
+      label <- sapply(split, function(l)  return(l[length(l)-1]))
+      cnames <- c(cnames, label)
     }
   }
-  return(result)
+
+  colnames(final) <- cnames
+
+  return(final)
 }
 
