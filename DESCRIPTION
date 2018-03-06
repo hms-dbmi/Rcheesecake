@@ -1,8 +1,8 @@
 Package: Rcheesecake
-Title: What the Package Does (one line, title case)
-Version: 0.0.0.9000
-Authors@R: person("First", "Last", email = "first.last@example.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Title: Query A Study Through The PIC-SURE API
+Version: 0.99
+Authors@R: c(person("Gregoire", "Versmee", email = "gversmee@mail.harvard.edu", role = c("aut", "cre")),person("Laura", "Versmee", role = c("aut")))
+Description: This package contains only one function called picsure. It will retrieve the selected variables from the selected subset of patient through the PIC-SURE API, and returns a data.frame.
 Depends: R (>= 3.1)
 License: What license is it under?
 Encoding: UTF-8

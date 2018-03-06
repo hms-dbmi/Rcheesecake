@@ -2,22 +2,45 @@
 % Please edit documentation in R/cheescake.R
 \name{picsure}
 \alias{picsure}
-\title{TEST}
+\title{Query your study via the PIC-SURE API}
 \usage{
 picsure(env, key, var, subset = "ALL", verbose = FALSE)
 }
 \arguments{
 \item{env}{The URL of the environment}
 
-\item{key}{The key to log in your environment
-function}
+\item{key}{The key or the token to log in your environment}
 
-\item{var}{A vector with the variables of interest}
+\item{var}{A vector with the variables of interest (full paths with forward slashes). If an argument corresponds to a node, it will return all the variables below the node}
 
-\item{url}{The url.}
+\item{subset}{By default, subset = ALL and gives you back all the patients that have at least one variable of interest. See the examples for more complex subsets}
+
+\item{verbose}{By default, verbose = FALSE. Set it to verbose = FALSE to get the log informations}
+}
+\value{
+Returns a data.frame
 }
 \description{
-TEST
+For this beta version, it is only possible to query phenotypics data. Soon, the package will be upgraded to be able to query genotypics data from Hail.
+}
+\examples{
+Without any subset, will return all the patients that have at least one value for a variable of interest
+environment <- "https://nhanes.hms.harvard.edu"
+key <- "yourkeyortoken"
+pcb <- "laboratory/pcbs/PCB153 (ng per g)"
+age <- "demographics/AGE/"
+sex <- "demographics/SEX"
+variables <- c(pcb, sex, age)
+picsure(environment, key, variables)
+
+Adding a variable as subset will return only the patient that have a value for this specific variable (can be combined with AND, OR, NOT)
+subset <- "(laboratory/pcbs/PCB153 (ng per g))"
+picsure(environment, key, variables, subset)
+
+The continuous variable can be filtered by <, >, ==, !=, <=, >=.
+subset <- "(/demographics/AGE > 60) | (/demographics/AGE < 20)"
+picsure(environment, key, variables, subset)
+
 }
 \author{
 Gregoire Versmee, Laura Versmee, Mikael Dusenne

@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export query.where
+#' @author Gregoire Versmee, Laura Versmee
 
 query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  {
 

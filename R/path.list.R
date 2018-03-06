@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export path.list
+#' @author Gregoire Versmee, Laura Versmee
 
 path.list <- function(env, var, token, verbose = FALSE) {
 

@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export order.col
+#' @author Gregoire Versmee, Laura Versmee
 
 order.col <- function(result, allpaths, verbose = FALSE)  {
 

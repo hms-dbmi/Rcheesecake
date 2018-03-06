@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export nicer.result
+#' @author Gregoire Versmee, Laura Versmee, Mikael Dusenne
 
 nicer.result <- function(result, verbose = FALSE)  {
 

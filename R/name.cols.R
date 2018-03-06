@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export name.cols
+#' @author Gregoire Versmee, Laura Versmee
 
 name.cols <- function(result, verbose = FALSE) {
 

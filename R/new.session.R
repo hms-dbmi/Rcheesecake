@@ -1,5 +1,4 @@
-#' @author Gregoire Versmee
-#' @export new.session
+#' @author Gregoire Versmee, Laura Versmee
 #' @import openssl
 
 
