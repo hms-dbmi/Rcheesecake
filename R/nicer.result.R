@@ -3,6 +3,7 @@
 
 nicer.result <- function(result, verbose = FALSE)  {
 
+  if (verbose == TRUE)  message("  combining the categorical variables")
 
   groups <- c()
   for (i in 1:ncol(result))  {

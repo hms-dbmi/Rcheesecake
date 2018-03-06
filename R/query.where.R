@@ -3,9 +3,13 @@
 
 query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  {
 
+  if (verbose == TRUE)  message('\nBuilding the "where" part of the query')
+
   where <- '"where": ['
 
   if (subset == "ALL")  {
+
+    if (verbose == TRUE)  message('  default subset = "ALL"\n  -> will look for all the patients that have a value for at list one of the variable selected')
 
     where <- paste0(where,
              paste0('{"field": {"pui": "',
@@ -23,6 +27,8 @@ query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  
     }
   }  else  {
 
+    if (verbose == TRUE)  message("Complex subset detected")
+
     ## Working on where clause, struct = "(path/to/var1) & (path/to/var2 > x) ! (path/to/var3 <= y)"
     #1. substitue AND, OR, NOT by &,|, !
     subset <- gsub("\\) AND \\(", "\\) & \\(", gsub("\\) OR \\(", "\\) \\| \\(", gsub("\\) NOT \\(", "\\) ! \\(", subset)))
@@ -37,6 +43,8 @@ query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  
 
     sep <- c(1, and, or, not, nchar(subset))
     nargs <- length(sep)-1
+
+    if (verbose == TRUE)  message(paste(nargs, "argument(s) detected"))
 
     ## 2.1 start building the dataframe
     df <- data.frame(matrix(nrow = nargs, ncol = 7))

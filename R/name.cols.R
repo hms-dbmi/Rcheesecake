@@ -3,6 +3,8 @@
 
 name.cols <- function(result, verbose = FALSE) {
 
+  if (verbose == TRUE)  message("  making the names of the columns pretty")
+
   cnames <- colnames(result)
   cnames <- gsub(" ", "_", cnames)
   for (i in 1:length(cnames))  {

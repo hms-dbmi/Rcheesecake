@@ -4,6 +4,7 @@
 path.list <- function(env, var, token, verbose = FALSE) {
 
   # return the list  of all paths corresponding to the variables selected
+  if (verbose == TRUE)  message("\nRetrieving the selected pathways:")
 
   pathlist <- c()
   # Standardize the path name "/path/to/the/node
@@ -28,14 +29,20 @@ path.list <- function(env, var, token, verbose = FALSE) {
       path2 <- paste0(path1, pui[1])
       listpui <- content.get(path2, token)
       pui <- c()
+      if (length(listpui) > 0)  {
         for (j in 1:length(listpui))  {
           pui <- c(pui, listpui[[j]][["pui"]])
         }
+      } else {
+          stop(paste0("Can't find the path ", '"', var[i], '", please check the spelling\nProcess stopped'), call. = FALSE)
+      }
     }
     pui <- pui[which(grepl (st, pui, fixed = TRUE))]
 
     # Concat 1st node with the path to create the full path
     path <- paste0(pui, sub(paste0("/", st, "/"), "", var[i], fixed = TRUE))
+
+    if (verbose == TRUE)  message(path)
 
     # Add to pathlist
     pathlist <- c(pathlist, path)

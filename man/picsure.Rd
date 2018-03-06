@@ -20,5 +20,5 @@ function}
 TEST
 }
 \author{
-Gregoire Versmee
+Gregoire Versmee, Laura Versmee, Mikael Dusenne
 }

@@ -1,8 +1,9 @@
 #' @author Gregoire Versmee
 #' @export query.select
 
-query.select <- function(pathlist)  {
+query.select <- function(pathlist, verbose = FALSE)  {
 
+  if (verbose == TRUE)  message('\nBuilding the "select" part of the query')
   ind <- length(pathlist)
   select <- '{"select": ['
 
