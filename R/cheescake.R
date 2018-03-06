@@ -4,7 +4,7 @@
 #' @param key The key or the token to log in your environment
 #' @param var  A vector with the variables of interest (full paths with forward slashes). If an argument corresponds to a node, it will return all the variables below the node
 #' @param subset  By default, subset = ALL and gives you back all the patients that have at least one variable of interest. See the examples for more complex subsets
-#' @param verbose By default, verbose = FALSE. Set it to verbose = FALSE to get the log informations
+#' @param verbose By default, {verbose = FALSE}. Set it to {verbose = TRUE} to get the log informations
 #' @return Returns a data.frame
 #' @author Gregoire Versmee, Laura Versmee, Mikael Dusenne
 #' @export picsure

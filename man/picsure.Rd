@@ -15,7 +15,7 @@ picsure(env, key, var, subset = "ALL", verbose = FALSE)
 
 \item{subset}{By default, subset = ALL and gives you back all the patients that have at least one variable of interest. See the examples for more complex subsets}
 
-\item{verbose}{By default, verbose = FALSE. Set it to verbose = FALSE to get the log informations}
+\item{verbose}{By default, {verbose = FALSE}. Set it to {verbose = TRUE} to get the log informations}
 }
 \value{
 Returns a data.frame
