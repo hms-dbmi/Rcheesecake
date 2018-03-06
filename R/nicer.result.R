@@ -26,13 +26,13 @@ nicer.result <- function(result, verbose = FALSE)  {
       col <- as.factor(apply(subdf, 1, paste0, collapse = ""))
       final <- cbind(final, col)
       split <- unlist(strsplit(colnames(subdf), "/"))
-      code <- split[length(split)]
+      code <- split[length(split)-1]
       cnames <- c(cnames, code)
 
     } else {
       final <- cbind(final, subdf)
       split <- strsplit(colnames(subdf), "/")
-      label <- sapply(split, function(l)  return(l[length(l)-1]))
+      label <- sapply(split, function(l)  return(l[length(l)]))
       cnames <- c(cnames, label)
     }
   }
