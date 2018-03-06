@@ -1,19 +1,21 @@
 #' @author Gregoire Versmee
 #' @export new.session
+#' @import openssl
 
 
 new.session <- function(env, key, verbose = FALSE)  {
 
   newsession <- httr::GET(paste0(env, "/rest/v1/securityService/startSession?key=", key))
   status <- httr::status_code(newsession)
-  contentstatus <- httr::content(newsession)$status
-  if (is.null(contentstatus))  contentstatus <- "NULL"
+  content <- httr::content(newsession)
+  if (is.null(content$status))  content$status <- "NULL"
 
-  if (status == 200 & contentstatus == "success")  {
+  if (status == 200 & content$status == "success")  {
+
     if (verbose == TRUE)  message(paste("Succesfully started the session on", env))
   } else {
 
-    if (status == 200 & contentstatus == "error")  {
+    if (status == 200 & content$status == "error")  {
       stop(paste0("Invalid key\nPlease revise your key, go to ", env, "/transmart/user"), call. = FALSE)
     }
 
@@ -30,4 +32,12 @@ new.session <- function(env, key, verbose = FALSE)  {
     }
   }
 
+  if (!is.null(content$token))  {
+    parse <- rawToChar(openssl::base64_decode(unlist(strsplit(content$token, "\\."))[2]))
+    name <- substr(parse, regexpr("email", parse) + 8, max(gregexpr("@", parse)[[1]])-1)
+    message(paste("\nHi", name, "thank you for using Rcheesecake!\nNext time, try using the token instead of the key. If you want a demo, ask the developpers."))
+  }
+
 }
+
+verbose = TRUE

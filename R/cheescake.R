@@ -18,7 +18,9 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
     token <- NULL
   }  else  {
     token <- key
-    if (verbose == TRUE)  message("Token detected")
+    parse <- rawToChar(openssl::base64_decode(unlist(strsplit(token, "\\."))[2]))
+    name <- substr(parse, regexpr("email", parse) + 8, max(gregexpr("@", parse)[[1]])-1)
+    message(paste("\nHi", name, "thank you for using Rcheesecake!"))
   }
 
   # build the query
@@ -58,6 +60,8 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
 
       # make valid column names
       result <- name.cols(result, verbose)
+
+      message("\nEnjoy!")
 
       return(result)
 }
