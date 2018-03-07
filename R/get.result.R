@@ -1,4 +1,5 @@
 #' @author Gregoire Versmee
+#' @import readr
 
 get.result <- function(env, resultID, token, verbose = FALSE) {
 
