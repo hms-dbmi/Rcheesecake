@@ -3,4 +3,3 @@
 export(picsure)
 import(httr)
 import(openssl)
-import(readr)
