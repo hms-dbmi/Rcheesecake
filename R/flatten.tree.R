@@ -5,7 +5,7 @@ flatten.tree <- function(env, nodelist, token, verbose = FALSE)  {
 
 
   if (verbose == TRUE)  message("\nRetrieving all variables associated with those pathways:")
-  fetchNode <- function(e)  content.get(paste0(env, "/rest/v1/resourceService/path", e), token)
+  fetchNode <- function(e)  content.get(paste0(env, "/rest/v1/resourceService/path", gsub("\\?", "%3F", e)), token)
 
   f <- function(l)  {
     unlist(sapply(l,

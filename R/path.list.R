@@ -3,7 +3,7 @@
 path.list <- function(env, var, token, verbose = FALSE) {
 
   # return the list  of all paths corresponding to the variables selected
-  if (verbose == TRUE)  message("\nRetrieving the selected pathways:")
+  if (verbose)  message("\nRetrieving the selected pathways:")
 
   pathlist <- c()
   # Standardize the path name "/path/to/the/node
@@ -26,7 +26,7 @@ path.list <- function(env, var, token, verbose = FALSE) {
 
     while (!any(grepl (st, pui, fixed = TRUE)))  {
       path2 <- paste0(path1, pui[1])
-      listpui <- content.get(path2, token)
+      listpui <- content.get(gsub("\\?", "%3F", path2), token)
       pui <- c()
       if (length(listpui) > 0)  {
         for (j in 1:length(listpui))  {
