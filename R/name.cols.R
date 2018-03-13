@@ -2,7 +2,7 @@
 
 name.cols <- function(result, verbose = FALSE) {
 
-  if (verbose == TRUE)  message("  making the names of the columns pretty")
+  if (verbose)  message("  making the columns' name pretty")
 
   cnames <- colnames(result)
   cnames <- gsub(" ", "_", cnames)
