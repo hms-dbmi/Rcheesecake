@@ -41,7 +41,7 @@ path.list <- function(env, var, token, verbose = FALSE) {
     # Concat 1st node with the path to create the full path
     path <- paste0(pui, sub(paste0("/", st, "/"), "", var[i], fixed = TRUE))
 
-    if (verbose == TRUE)  message(path)
+    if (verbose)  message(path)
 
     # Add to pathlist
     pathlist <- c(pathlist, path)

@@ -2,7 +2,7 @@
 
 query.select <- function(pathlist, verbose = FALSE)  {
 
-  if (verbose == TRUE)  message('\nBuilding the "select" part of the query')
+  if (verbose)  message('\nBuilding the "select" part of the query')
   ind <- length(pathlist)
   select <- '{"select": ['
 

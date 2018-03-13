@@ -33,7 +33,7 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
 
   # Is it a key or a token?
   if (nchar(key) == 26)  {
-    if (verbose == TRUE)  message(paste("Key detected, starting a session on", env))
+    if (verbose)  message(paste("Key detected, starting a session on", env))
     status <- new.session(env, key, verbose)
 
     token <- NULL
@@ -59,7 +59,7 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
       where <- query.where(env, allpaths, subset, token, verbose)
 
     # combine select and where
-      if (verbose == TRUE)  message('\nCombining the "select" and "where" part of the query to build the json body')
+      if (verbose)  message('\nCombining the "select" and "where" part of the query to build the json body')
       body <- paste0(select, where)
 
   # run the query

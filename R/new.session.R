@@ -11,7 +11,7 @@ new.session <- function(env, key, verbose = FALSE)  {
 
   if (status == 200 & content$status == "success")  {
 
-    if (verbose == TRUE)  message(paste("Succesfully started the session on", env))
+    if (verbose)  message(paste("Succesfully started the session on", env))
   } else {
 
     if (status == 200 & content$status == "error")  {
@@ -38,5 +38,3 @@ new.session <- function(env, key, verbose = FALSE)  {
   }
 
 }
-
-verbose = TRUE
