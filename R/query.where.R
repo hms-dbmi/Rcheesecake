@@ -10,20 +10,13 @@ query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  
 
     if (verbose)  message('  default subset = "ALL"\n  -> will look for all the patients that have a value for at list one of the variable selected')
 
-    where <- paste0(where,
-             paste0('{"field": {"pui": "',
-                    pathlist[1],
-                    '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},'))
+    return(paste0('"where": [{',
+           paste0('"field": {"pui": "',
+                   pathlist,
+                   '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}',
+                   collapse = '},{"logicalOperator": "OR", '),
+            '}]}'))
 
-    if (length(pathlist)>1)  {
-      for (i in 2:(length(pathlist)))  {
-        where <- paste0(where,
-                        paste0('{"field": {"pui": "',
-                               pathlist[i],
-                               '","dataType": "STRING"}, "logicalOperator": "OR", "predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},'))
-
-      }
-    }
   }  else  {
 
     if (verbose)  message("Complex subset detected")
@@ -100,47 +93,44 @@ query.where <- function(env, pathlist, subset = "ALL", token, verbose = FALSE)  
 
       if (is.na(df[1,4]))  {
       where <- paste0(where,
-                      paste0('{"field": {"pui": "',
-                             df[1,2],
-                             '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},'))
+                      '{"field": {"pui": "',
+                      df[1,2],
+                      '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},')
       } else  {
         where <- paste0(where,
-                        paste0('{"field": {"pui": "',
-                               df[1,2],
-                               '","dataType": "INTEGER"},"predicate": "CONSTRAIN_VALUE","fields": {"OPERATOR": "',
-                               df[1,4],
-                               '", "CONSTRAINT": "',
-                               df[1,5],
-                                '","ENCOUNTER": "YES"}},'))
+                        '{"field": {"pui": "',
+                        df[1,2],
+                        '","dataType": "INTEGER"},"predicate": "CONSTRAIN_VALUE","fields": {"OPERATOR": "',
+                        df[1,4],
+                        '", "CONSTRAINT": "',
+                        df[1,5],
+                        '","ENCOUNTER": "YES"}},')
       }
 
       if (nrow(df)>1)  {
         for (i in 2:nrow(df))  {
           if (is.na(df[i,4]))  {
             where <- paste0(where,
-                            paste0('{"logicalOperator":"',
-                                    df[i,1],
-                                    '","field": {"pui": "',
-                                    df[i,2],
-                                    '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},'))
+                            '{"logicalOperator":"',
+                            df[i,1],
+                            '","field": {"pui": "',
+                            df[i,2],
+                            '","dataType": "STRING"},"predicate": "CONTAINS","fields": {"ENCOUNTER": "YES"}},')
           } else  {
             where <- paste0(where,
-                            paste0('{"logicalOperator":"',
-                                   df[i,1],
-                                   '","field": {"pui": "',
-                                   df[i,2],
-                                   '","dataType": "INTEGER"},"predicate": "CONSTRAIN_VALUE","fields": {"OPERATOR": "',
-                                   df[i,4],
-                                   '", "CONSTRAINT": "',
-                                   df[i,5],
-                                   '","ENCOUNTER": "YES"}},'))
+                            '{"logicalOperator":"',
+                            df[i,1],
+                            '","field": {"pui": "',
+                            df[i,2],
+                            '","dataType": "INTEGER"},"predicate": "CONSTRAIN_VALUE","fields": {"OPERATOR": "',
+                            df[i,4],
+                            '", "CONSTRAINT": "',
+                            df[i,5],
+                            '","ENCOUNTER": "YES"}},')
           }
         }
       }
-    }
-
-  where <- paste0(substr(where, 1, (nchar(where)-1)), "]}")
-
-  return(where)
+    where <- paste0(substr(where, 1, (nchar(where)-1)), "]}")
+    return(where)
+  }
 }
-
