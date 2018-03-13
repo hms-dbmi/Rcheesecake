@@ -1,5 +1,4 @@
 #' @author Gregoire Versmee, Laura Versmee
-#' @import openssl
 
 
 new.session <- function(env, key, verbose = FALSE)  {
@@ -32,9 +31,7 @@ new.session <- function(env, key, verbose = FALSE)  {
   }
 
   if (!is.null(content$token))  {
-    parse <- rawToChar(openssl::base64_decode(unlist(strsplit(content$token, "\\."))[2]))
-    name <- substr(parse, regexpr("email", parse) + 8, max(gregexpr("@", parse)[[1]])-1)
-    message(paste("\nHi", name, "thank you for using Rcheesecake!\nNext time, try using the token instead of the key. If you want a demo, ask the developpers."))
+    message("Next time, try using the token instead of the key. If you want a demo, ask the developpers.")
   }
 
 }

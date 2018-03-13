@@ -27,22 +27,20 @@
 #' picsure(environment, key, variables, subset)
 #'
 #' @import httr
-#' @import openssl
 
 picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
 
   # Is it a key or a token?
-  if (nchar(key) == 26)  {
+  if (nchar(key) < 27)  {
     if (verbose)  message(paste("Key detected, starting a session on", env))
     status <- new.session(env, key, verbose)
-
     token <- NULL
-  }  else  {
-    token <- key
-    parse <- rawToChar(openssl::base64_decode(unlist(strsplit(token, "\\."))[2]))
-    name <- substr(parse, regexpr("email", parse) + 8, max(gregexpr("@", parse)[[1]])-1)
-    message(paste("\nHi", name, "thank you for using Rcheesecake!"))
-  }
+  }  else  token <- key
+
+  # Say hello!
+  username <- data.frame(content.get(paste0(env, "/rest/v1/systemService/about"), token), stringsAsFactors = FALSE)$userid
+  username <- unlist(strsplit(username, "@"))[1]
+  message(paste("\nHi", username, "thank you for using Rcheesecake!"))
 
   # build the query
     # build the "select" part of the query
