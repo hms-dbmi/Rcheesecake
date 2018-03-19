@@ -39,8 +39,12 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
 
   # Say hello!
   username <- data.frame(content.get(paste0(env, "/rest/v1/systemService/about"), token), stringsAsFactors = FALSE)$userid
-  username <- unlist(strsplit(username, "@"))[1]
-  message(paste("\nHi", username, "thank you for using Rcheesecake!"))
+   if (!is.null(username)) {
+     username <- unlist(strsplit(username, "@"))[1]
+     message(paste("\nHi", username, "thank you for using Rcheesecake!"))
+   } else {
+     message(paste("\nHi thank you for using Rcheesecake!"))
+   }
 
   # build the query
     # build the "select" part of the query
