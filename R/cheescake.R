@@ -45,6 +45,7 @@ picsure <- function(env, key, var, subset = "ALL", verbose = FALSE) {
            |  _  \\ \\ / / | | |/ _` |/ __| '_ \\  | |    / _` | '_ \\
            | | | |\\ V /| | | | (_| | (__| | | | | |___| (_| | |_) |
            \\_| |_/ \\_/ |_|_|_|\\__,_|\\___|_| |_| \\_____/\\__,_|_.__/")
+
    if (!is.null(username)) {
      username <- unlist(strsplit(username, "@"))[1]
      message(paste("\nHi", username, "thank you for using Rcheesecake!"))

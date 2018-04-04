@@ -17,15 +17,15 @@ new.session <- function(env, key, verbose = FALSE)  {
       stop(paste0("Invalid key\nPlease revise your key, go to ", env, "/transmart/user"), call. = FALSE)
     }
 
-    if (status == (401))  {
+    if (status == 401)  {
       stop(paste0("Invalid key\nPlease revise your key, go to ", env, "/transmart/user"), call. = FALSE)
     }
 
-    if (status == (404))  {
+    if (status == 404)  {
       stop(paste(env, "-> Invalid environment address or server issue"), call. = FALSE)
     }
 
-    if (status == (500))  {
+    if (status == 500)  {
       stop(paste(env, "-> Internal server error, please contact the developpers"), call. = FALSE)
     }
   }
